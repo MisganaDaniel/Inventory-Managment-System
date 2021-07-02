@@ -4,7 +4,28 @@
 <head>
 
     <?php
+        include_once 'connection/connection.php';
         include_once 'includes/head.php';
+    ?>
+    <?php
+        if(isset($_POST['login'])){
+            $username   = $_POST['username'];
+            $password   = $_POST['password'];
+            $role   = $_POST['role'];
+            $hash_password = MD5($password);
+            $record = "SELECT * FROM `user` WHERE `fullname` = '$username' AND `password` = '$hash_password' AND `role` = '$role'";
+            $result = mysqli_query($conn,$record);
+            $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+            $count = mysqli_num_rows($result);
+           
+            if($count == 1) {
+                session_start(); 
+                $_SESSION['username'] = $username;
+                header("location: index.php");
+             }else {
+                $error = "Your Login Name or Password is invalid";
+             }
+        }
     ?>
 
 </head>
@@ -29,26 +50,24 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome</h1>
                                     </div>
-                                    <form class="user">
+                                    <form class="user" action="login.php" method="POST"> 
                                         <div class="form-group">
-                                            <input type="email" class="form-control"
+                                            <input type="text" class="form-control"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Enter Username" required>
+                                                placeholder="Enter Username" name="username" required>
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control"
-                                                id="exampleInputPassword" placeholder="Enter Password" required>
+                                                id="exampleInputPassword" name="password" placeholder="Enter Password" required>
                                         </div>
                                         <div class="form-group">
-                                           <select name="" id="" class="form-control" required>
+                                           <select name="role" id="" class="form-control" required>
                                                <option value="1" >Select Role</option>
-                                               <option value="">Admin</option>
-                                               <option value="">User</option>
+                                               <option value="Admin">Admin</option>
+                                               <option value="User">User</option>
                                            </select>
                                         </div>
-                                        <a href="index.php" class="btn btn-primary btn-user btn-block">
-                                            Login
-                                        </a>
+                                        <button type="submit" name="login" class="btn btn-primary btn-user btn-block">Login</button>
                                        
                                     </form>
                                     <hr>

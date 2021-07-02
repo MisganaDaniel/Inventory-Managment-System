@@ -15,9 +15,10 @@
             $tel = $_POST['tel'];
             $email = $_POST['email'];
             $role = $_POST['role'];
+            $hash_password = MD5($password);
 
-            $record = "INSERT INTO user (fullname, email, password,role,tel)
-                        VALUES (`$username`,`$email`,`$password`,`$role`,`$tel`)";
+            $record = "INSERT INTO `user` (`fullname`, `email`, `password`,`role`,`tel`)
+                        VALUES ('$username','$email','$hash_password','$role','$tel')";
             if(mysqli_query($conn, $record)){
                 echo 'successfully registered';
             }else{
