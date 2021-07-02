@@ -33,14 +33,14 @@
                                         <div class="form-group">
                                             <input type="email" class="form-control"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Enter Username">
+                                                placeholder="Enter Username" required>
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control"
-                                                id="exampleInputPassword" placeholder="Enter Password">
+                                                id="exampleInputPassword" placeholder="Enter Password" required>
                                         </div>
                                         <div class="form-group">
-                                           <select name="" id="" class="form-control">
+                                           <select name="" id="" class="form-control" required>
                                                <option value="1" >Select Role</option>
                                                <option value="">Admin</option>
                                                <option value="">User</option>
@@ -54,7 +54,7 @@
                                     <hr>
                                     
                                     <div class="text-center">
-                                        <a class="small" href="register.html">Create an Account!</a>
+                                        <a class="small" href="register.php">Create an Account!</a>
                                     </div>
                                 </div>
                             </div>
