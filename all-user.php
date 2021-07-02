@@ -39,7 +39,7 @@
                     </div>
                     <div class="card shadow mt-5">
                         <div class="card-header">
-                            <h1>Update User</h1>
+                            <h1>All User</h1>
                         </div>
                         <div class="card-body">
                             <table class="table table-striped table-hover">
@@ -60,7 +60,7 @@
                                         <td>Mr.X@example.com</td>
                                         <td>123456789</td>
                                         <td>02/07/2021</td>
-                                        <td><a href="user-update.php"><i class="fas fa-edit"></i></a></td>
+                                        <td><a href="view-user.php"><i class="fas fa-eye"></i></a> | <a href="user-update.php"><i class="fas fa-edit"></i></a> | <a href="#"><i class="fas fa-trash-alt"></i></a> | <a href="#"><i class="fas fa-ban"></i></a></td>
                                     </tr>
                                     <tr>
                                         <td>02</td>
@@ -68,7 +68,7 @@
                                         <td>Mr.Y@example.com</td>
                                         <td>987654321</td>
                                         <td>02/07/2021</td>
-                                        <td><a href="user-update.php"><i class="fas fa-edit"></i></a></td>
+                                        <td><a href="view-user.php"><i class="fas fa-eye"></i></a> | <a href="user-update.php"><i class="fas fa-edit"></i></a> | <a href="#"><i class="fas fa-trash-alt"></i></a> | <a href="#"><i class="fas fa-ban"></i></a></td>
                                     </tr>
                                 </tbody>
                             </table>

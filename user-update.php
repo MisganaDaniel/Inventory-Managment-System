@@ -42,36 +42,31 @@
                             <h1>Update User</h1>
                         </div>
                         <div class="card-body">
-                            <table class="table table-striped table-hover">
-                                <thead>
-                                    <tr>
-                                        <td>Seq. No.</td>
-                                        <td>User Name</td>
-                                        <td>User Email</td>
-                                        <td>User Phone</td>
-                                        <td>Created Date</td>
-                                        <td>Action</td>
-                                    </tr>
-                                </thead>
-                                <tbody style="text-align:center;">
-                                    <tr>
-                                        <td>01</td>
-                                        <td>Mr. X</td>
-                                        <td>Mr.X@example.com</td>
-                                        <td>123456789</td>
-                                        <td>02/07/2021</td>
-                                        <td><a href="user-update.php"><i class="fas fa-edit"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>02</td>
-                                        <td>Mr. Y</td>
-                                        <td>Mr.Y@example.com</td>
-                                        <td>987654321</td>
-                                        <td>02/07/2021</td>
-                                        <td><a href="user-update.php"><i class="fas fa-edit"></i></a></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <form action="">
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="">User Name</label>
+                                        <input type="text" class="form-control" placeholder="User Name" aria-label="User Name">
+                                    </div>
+                                    <div class="col mb-5">
+                                        <label for="">Email</label>
+                                        <input type="text" class="form-control" placeholder="Email" aria-label="Email">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col mb-5">
+                                        <label for="">Phone</label>
+                                        <input type="text" class="form-control" placeholder="Phone" aria-label="Phone">
+                                    </div>
+                                    <div class="col">
+                                        <label for="">User Created Date</label>
+                                        <input type="date" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-left:900px;">
+                                    <button type="submit" class="btn btn-primary mr-2">Update</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                         
