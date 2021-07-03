@@ -41,18 +41,14 @@
                         $status = $record['status'];
                     }
 
-                    if(isset($_POST['update'])){
+                    if(isset($_POST['delete'])){
                         $owner = $_POST['owner']; 
                         $status = $_POST['status'];	
-                        $record = mysqli_query($conn,"UPDATE `asset` 
-                                                      SET `asset_owner`='$owner',
-                                                          `status`='$status'"
-                                                      );
+                        $record = mysqli_query($conn,"DELETE FROM `asset` WHERE `id`= '$id'");
                         if($record){
-                            echo '<script type="text/javascript">';
-                            echo ' alert("Asset Details Updated Successful")';
-                                header('Location: all-asset.php');
-                            echo '</script>';
+                            mysqli_close($db); // Close connection
+                            header("location: all-asset.php"); // redirects to all records page
+                            exit;
                         }else{
                             echo "Error: " . $record . " " . mysqli_error($conn);
                         }
@@ -69,56 +65,36 @@
                     </div>
                     <div class="card shadow mt-5">
                         <div class="card-header">
-                            <h1>Update Assets</h1>
+                            <h3>Delete <?php echo @$asset_name; ?> Given to  '<?php echo @$asset_owner; ?>'</h3>
                         </div>
                         <div class="card-body">
                         <form action="update.php" method="post">
                                 <div class="row">
                                     <div class="col">
-                                        <label for=""><strong>Asset Name</strong></label>
-                                        <input type="text"  class="form-control" placeholder="<?php echo @$asset_name; ?>" aria-label="Asset Name" readonly>
+                                        <label for=""><strong>Asset Name: </strong><?php echo @$asset_name; ?></label>
                                     </div>
                                     <div class="col mb-5">
-                                        <label for=""><strong>Asset Serial Number</strong></label>
-                                        <input type="text" class="form-control" placeholder="<?php echo @$asset_SN; ?>" aria-label="Asset Serial Number" readonly>
+                                        <label for=""><strong>Asset Serial Number: </strong><?php echo @$asset_SN; ?></label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col mb-5">
-                                        <label for=""><strong>Asset Description</strong></label>
-                                        <input type="text"  class="form-control" placeholder="<?php echo @$asset_description; ?>" aria-label="Asset Name" readonly>   
+                                        <label for=""><strong>Asset Description: </strong><?php echo @$asset_description; ?></label>
                                     </div>
                                     <div class="col mb-5">
                                         <label for=""><strong>Asset Owner:</strong>  <?php echo @$asset_owner; ?></label>
-                                        <select class="form-control" name="owner" id="">
-                                            <option value="">Select Owner</option>
-                                            <?php
-                                                $records = mysqli_query($conn,"SELECT `fullname` FROM `user` WHERE `role` = 'User'") OR die(mysqli_error($conn));
-                                                while($record=mysqli_fetch_assoc($records)){
-                                                    echo "<option value='".$record['fullname']."'>" .$record['fullname']. "</option>";
-                                                }
-                                            ?>
-                                        </select>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col">
                                         <label for=""><strong>Asset Created Date:</strong>  <?php echo @$date; ?></label>
-                                        <input type="text"  class="form-control" placeholder="<?php echo @$date; ?>" aria-label="Asset Name" readonly>   
                                     </div>
                                     <div class="col mb-5">
                                         <label for=""><strong>Asset Status:</strong>  <?php echo @$status; ?></label>
-                                        <select class="form-control" name="status" id="">
-                                            <option value="Purchased">Purchased</option>
-                                            <option value="Operational">Operational</option>
-                                            <option value="In Store">In Store</option>
-                                            <option value="Not Operational">Not Operational</option>
-                                            <option value="Retired">Retired</option>
-                                        </select>
                                     </div>
                                 </div>
                                 <div class="row" style="margin-left:900px;">
-                                    <button type="submit" name="update" class="btn btn-primary mr-2">Update</button>
+                                    <button type="submit" name="delete" class="btn btn-danger mr-2">Delete</button>
                                 </div>
                             </form>
                         </div>
