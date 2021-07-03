@@ -68,7 +68,7 @@
                                         <td><?php echo $record['asset_owner']; ?></td>
                                         <td><?php echo $record['date']; ?></td>
                                         <td><?php echo $record['status']; ?></td>
-                                        <td><a href="view-asset.php?id=<?php echo $id; ?>"><i class="fas fa-eye"></i></a> | <a href="update.php"><i class="fas fa-edit"></i></a> | <a href="#"><i class="fas fa-trash-alt"></i></a></td>
+                                        <td><a href="view-asset.php?id=<?php echo $id; ?>"><i class="fas fa-eye"></i></a> | <a href="update.php?id=<?php echo $id; ?>"><i class="fas fa-edit"></i></a> | <a href="#"><i class="fas fa-trash-alt"></i></a></td>
                                     </tr>
                                 <?php
                                     $i++;

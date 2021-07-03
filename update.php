@@ -28,6 +28,38 @@
                 <?php
                     include_once 'includes/nav.php';
                 ?>
+
+                <?php
+                    @$id = $_GET['id'];
+                    $records = mysqli_query($conn,"SELECT * FROM `asset` WHERE `id` = '$id'") OR die(mysqli_error($conn));
+                    while($record=mysqli_fetch_assoc($records)){
+                        $asset_name = $record['asset_name'];
+                        $asset_SN = $record['asset_SN'];
+                        $asset_description = $record['asset_description'];
+                        $asset_owner = $record['asset_owner'];
+                        $date = $record['date'];
+                        $status = $record['status'];
+                    }
+
+                    if(isset($_POST['update'])){
+                        $description = $_POST['description']; 
+                        $owner = $_POST['owner']; 
+                        $status = $_POST['status'];	
+                        $record = mysqli_query($conn,"UPDATE `asset` 
+                                                      SET `asset_description`='$description',
+                                                          `asset_owner`='$owner',
+                                                          `status`='$status'
+                                                      WHERE `id` = '$id'");
+                        if($record){
+                            echo '<script type="text/javascript">';
+                            echo ' alert("Asset Details Updated Successful")';
+                                header('Location: all-asset.php');
+                            echo '</script>';
+                        }else{
+                            echo "Error: " . $record . " " . mysqli_error($conn);
+                        }
+                    }
+                ?>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
@@ -42,45 +74,54 @@
                             <h1>Update Assets</h1>
                         </div>
                         <div class="card-body">
-                        <form action="">
+                        <form action="update.php" method="post">
                                 <div class="row">
                                     <div class="col">
                                         <label for="">Asset Name</label>
-                                        <input type="text" class="form-control" placeholder="Asset Name" aria-label="Asset Name">
+                                        <input type="text"  class="form-control" placeholder="<?php echo $asset_name; ?>" aria-label="Asset Name" readonly>
                                     </div>
                                     <div class="col mb-5">
                                         <label for="">Asset Serial Number</label>
-                                        <input type="text" class="form-control" placeholder="Asset Serial Number" aria-label="Asset Serial Number">
+                                        <input type="text" class="form-control" placeholder="<?php echo $asset_SN; ?>" aria-label="Asset Serial Number" readonly>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col mb-5">
                                         <label for="">Asset Description</label>
-                                        <textarea class="form-control" name="" rows="4" cols="50"></textarea>
+                                        <textarea class="form-control" name="description" rows="1" cols="50">
+                                            <?php echo $asset_description; ?>
+                                        </textarea>
                                     </div>
                                     <div class="col mb-5">
-                                        <label for="">Asset Owner</label>
-                                        <input type="text" class="form-control" placeholder="Asset Owner" aria-label="Asset Owner">
+                                        <label for=""><strong>Asset Owner:</strong>  <?php echo $asset_owner; ?></label>
+                                        <select class="form-control" name="owner" id="">
+                                            <option value="">Select Owner</option>
+                                            <?php
+                                                $records = mysqli_query($conn,"SELECT `fullname` FROM `user` WHERE `role` = 'User'") OR die(mysqli_error($conn));
+                                                while($record=mysqli_fetch_assoc($records)){
+                                                    echo "<option value='".$record['fullname']."'>" .$record['fullname']. "</option>";
+                                                }
+                                            ?>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <label for="">Asset Created Date</label>
-                                        <input type="date" class="form-control">
+                                        <label for=""><strong>Asset Created Date:</strong>  <?php echo $date; ?></label>
                                     </div>
                                     <div class="col mb-5">
-                                        <label for="">Asset Status</label>
-                                        <select class="form-control" name="" id="">
-                                            <option value="">Purchased</option>
-                                            <option value="">Operational</option>
-                                            <option value="">In Store</option>
-                                            <option value="">Not Operational</option>
-                                            <option value="">Retired</option>
+                                        <label for=""><strong>Asset Status:</strong>  <?php echo $status; ?></label>
+                                        <select class="form-control" name="status" id="">
+                                            <option value="Purchased">Purchased</option>
+                                            <option value="Operational">Operational</option>
+                                            <option value="In Store">In Store</option>
+                                            <option value="Not Operational">Not Operational</option>
+                                            <option value="Retired">Retired</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="row" style="margin-left:900px;">
-                                    <button type="submit" class="btn btn-primary mr-2">Update</button>
+                                    <button type="submit" name="update" class="btn btn-primary mr-2">Update</button>
                                 </div>
                             </form>
                         </div>
