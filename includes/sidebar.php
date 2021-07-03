@@ -1,6 +1,10 @@
 <?php
-    include_once 'connection/connection.php';
+
     session_start();
+?>
+<?php
+    include_once 'connection/connection.php';
+    
     $role = $_SESSION['role'];
     if($role == "Admin"){
         echo '

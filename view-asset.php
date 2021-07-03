@@ -28,6 +28,19 @@
                 <?php
                     include_once 'includes/nav.php';
                 ?>
+
+                <?php
+                    @$id = $_GET['id'];
+                    $records = mysqli_query($conn,"SELECT * FROM `asset` WHERE `id` = '$id'") OR die(mysqli_error($conn));
+                    while($record=mysqli_fetch_assoc($records)){
+                        $asset_name = $record['asset_name'];
+                        $asset_SN = $record['asset_SN'];
+                        $asset_description = $record['asset_description'];
+                        $asset_owner = $record['asset_owner'];
+                        $date = $record['date'];
+                        $status = $record['status'];
+                    }
+                ?>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
@@ -45,11 +58,11 @@
                         <form action="">
                                 <div class="row">
                                     <div class="col">
-                                        <label for=""><strong>Asset Name:</strong>  XYZ</label>
+                                        <label for=""><strong>Asset Name:</strong>  <?php echo $asset_name; ?></label>
                                         
                                     </div>
                                     <div class="col mb-5">
-                                        <label for=""><strong>Asset Serial Number:</strong>  1234</label>
+                                        <label for=""><strong>Asset Serial Number:</strong>  <?php echo $asset_SN; ?></label>
                                         
                                     </div>
                                 </div>
@@ -57,20 +70,19 @@
                                     <div class="col mb-5">
                                         <label for=""><strong>Asset Description:</strong>  </label>
                                         <label for="">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
-                                        incididunt ut labore et dolore magna aliqua. 
+                                            <?php echo $asset_description; ?>
                                         </label>
                                     </div>
                                     <div class="col mb-5">
-                                        <label for=""><strong>Asset Owner:</strong>  ABC</label>
+                                        <label for=""><strong>Asset Owner:</strong>  <?php echo $asset_owner; ?></label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <label for=""><strong>Asset Created Date:</strong>  02/07/2021</label>
+                                        <label for=""><strong>Asset Created Date:</strong>  <?php echo $date; ?></label>
                                     </div>
                                     <div class="col mb-5">
-                                        <label for=""><strong>Asset Status:</strong>  Purchased</label>
+                                        <label for=""><strong>Asset Status:</strong>  <?php echo $status; ?></label>
                                     </div>
                                 </div>
                             </form>

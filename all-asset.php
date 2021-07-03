@@ -43,7 +43,7 @@
                         </div>
                         <div class="card-body">
                             <table class="table table-striped table-hover">
-                                <thead>
+                                <thead style="text-align:center;">
                                     <tr>
                                         <td>Seq. No.</td>
                                         <td>Asset Name</td>
@@ -51,31 +51,29 @@
                                         <td>Asset Owner</td>
                                         <td>Created Date</td>
                                         <td>Asset Status</td>
-                                        <td>Ownership</td>
                                         <td>Action</td>
                                     </tr>
                                 </thead>
+                                <?php
+                                    $records = mysqli_query($conn,"SELECT * FROM `asset`") OR die(mysqli_error($conn));
+                                    $i = 1;
+                                    while($record=mysqli_fetch_assoc($records)){
+                                        $id = $record['id'];
+                                ?>
                                 <tbody style="text-align:center;">
                                     <tr>
-                                        <td>01</td>
-                                        <td>XYZ</td>
-                                        <td>1234</td>
-                                        <td>ABC</td>
-                                        <td>02/07/2021</td>
-                                        <td>Purchased</td>
-                                        <td><i class="fas fa-user" data-toggle="modal" data-target="#exampleModal"></i></td>
-                                        <td><a href="view-asset.php"><i class="fas fa-eye"></i></a> | <a href="update.php"><i class="fas fa-edit"></i></a> | <a href="#"><i class="fas fa-trash-alt"></i></a></td>
+                                        <td><?php echo $i; ?></td>
+                                        <td><?php echo $record['asset_name']; ?></td>
+                                        <td><?php echo $record['asset_SN']; ?></td>
+                                        <td><?php echo $record['asset_owner']; ?></td>
+                                        <td><?php echo $record['date']; ?></td>
+                                        <td><?php echo $record['status']; ?></td>
+                                        <td><a href="view-asset.php?id=<?php echo $id; ?>"><i class="fas fa-eye"></i></a> | <a href="update.php"><i class="fas fa-edit"></i></a> | <a href="#"><i class="fas fa-trash-alt"></i></a></td>
                                     </tr>
-                                    <tr>
-                                        <td>02</td>
-                                        <td>ABC</td>
-                                        <td>4321</td>
-                                        <td>XYZ</td>
-                                        <td>02/07/2021</td>
-                                        <td>Operational</td>
-                                        <td><i class="fas fa-user" data-toggle="modal" data-target="#exampleModal"></i></td>
-                                        <td><a href="view-asset.php"><i class="fas fa-eye"></i></a> | <a href="update.php"><i class="fas fa-edit"></i></a> | <a href="#"><i class="fas fa-trash-alt"></i></a></td>
-                                    </tr>
+                                <?php
+                                    $i++;
+                                    }
+                                ?>
                                 </tbody>
                             </table>
                         </div>

@@ -1,3 +1,6 @@
+<?php
+    include_once 'connection/connection.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,6 +31,27 @@
                 <?php
                     include_once 'includes/nav.php';
                 ?>
+
+                <?php
+                    if(isset($_POST['create'])){
+                        $name = $_POST['name'];
+                        $SN = $_POST['SN'];
+                        $description = $_POST['description'];
+                        $owner = $_POST['owner'];
+                        $date = $_POST['date'];
+                        $status = $_POST['status'];
+
+                        $record = mysqli_query($conn,"INSERT INTO `asset` (`asset_name`,`asset_SN`,`asset_description`,`asset_owner`,`date`,`status`) VALUES ('$name','$SN','$description','$owner','$date','$status')");
+                        if($record){
+                            echo '<script type="text/javascript">';
+                            echo ' alert("New Asset registration Successful")';
+                            echo '</script>';
+                        }else{
+                            echo "Error: " . $record . " " . mysqli_error($conn);
+                        }
+                    }
+                    
+                ?>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
@@ -42,45 +66,53 @@
                             <h1>Create Asset</h1> 
                         </div>
                         <div class="card-body">
-                            <form action="">
+                            <form action="new-asset.php" method="post">
                                 <div class="row">
                                     <div class="col">
                                         <label for="">Asset Name</label>
-                                        <input type="text" class="form-control" placeholder="Asset Name" aria-label="Asset Name">
+                                        <input type="text" name="name" class="form-control" placeholder="Asset Name" aria-label="Asset Name">
                                     </div>
                                     <div class="col mb-5">
                                         <label for="">Asset Serial Number</label>
-                                        <input type="text" class="form-control" placeholder="Asset Serial Number" aria-label="Asset Serial Number">
+                                        <input type="text" name="SN" class="form-control" placeholder="Asset Serial Number" aria-label="Asset Serial Number">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col mb-5">
                                         <label for="">Asset Description</label>
-                                        <textarea class="form-control" name="" rows="4" cols="50"></textarea>
+                                        <textarea class="form-control" name="description" rows="4" cols="50"></textarea>
                                     </div>
                                     <div class="col mb-5">
                                         <label for="">Asset Owner</label>
-                                        <input type="text" class="form-control" placeholder="Asset Owner" aria-label="Asset Owner">
+                                        <select class="form-control" name="owner" id="">
+                                            <option value="">Select Owner</option>
+                                            <?php
+                                                $records = mysqli_query($conn,"SELECT `fullname` FROM `user` WHERE `role` = 'User'") OR die(mysqli_error($conn));
+                                                while($record=mysqli_fetch_assoc($records)){
+                                                    echo "<option value='".$record['fullname']."'>" .$record['fullname']. "</option>";
+                                                }
+                                            ?>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col">
                                         <label for="">Asset Created Date</label>
-                                        <input type="date" class="form-control">
+                                        <input type="date" name="date" class="form-control">
                                     </div>
                                     <div class="col mb-5">
                                         <label for="">Asset Status</label>
-                                        <select class="form-control" name="" id="">
-                                            <option value="">Purchased</option>
+                                        <select class="form-control" name="status" id="">
+                                            <option value="Purchased">Purchased</option>
                                             <option value="">Operational</option>
-                                            <option value="">In Store</option>
-                                            <option value="">Not Operational</option>
-                                            <option value="">Retired</option>
+                                            <option value="Operational">In Store</option>
+                                            <option value="Not Operational">Not Operational</option>
+                                            <option value="Retired">Retired</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="row" style="margin-left:850px;">
-                                    <button type="submit" class="btn btn-primary mr-2">Create</button>
+                                    <button type="submit" name="create" class="btn btn-primary mr-2">Create</button>
                                     <button type="reset" class="btn btn-danger">Clear</button>
                                 </div>
                             </form>
@@ -114,25 +146,6 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
