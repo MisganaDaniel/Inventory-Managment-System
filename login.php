@@ -21,6 +21,7 @@
             if($count == 1) {
                 session_start(); 
                 $_SESSION['username'] = $username;
+                $_SESSION['role'] = $role;
                 header("location: index.php");
              }else {
                 $error = "Your Login Name or Password is invalid";
