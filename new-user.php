@@ -30,7 +30,25 @@
                     include_once 'includes/nav.php';
                 ?>
                 <!-- End of Topbar -->
+                <?php
+                    if(isset($_POST['create'])){
+                        $username = $_POST['username'];
+                        $email = $_POST['email'];
+                        $phone = $_POST['phone'];
+                        $role = $_POST['role'];
 
+                        $record = mysqli_query($conn,"INSERT INTO `user` (`fullname`,`email`,`password`,`role`,`tel`) 
+                                                      VALUES ('$username','$email',MD5(Password1),'$role','$phone')");
+                        if($record){
+                            echo '<script type="text/javascript">';
+                            echo ' alert("New User registration Successful")';
+                            echo '</script>';
+                        }else{
+                            echo "Error: " . $record . " " . mysqli_error($conn);
+                        }
+                    }
+
+                ?>
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
@@ -60,8 +78,12 @@
                                         <input type="text" name="phone" class="form-control" placeholder="Phone" aria-label="Phone">
                                     </div>
                                     <div class="col">
-                                        <label for="">User Created Date</label>
-                                        <input type="date" name="date" class="form-control">
+                                        <label for="">Role</label>
+                                        <select class="form-control" name="role" id="">
+                                            <option value="">Select Role</option>
+                                            <option value="Admin">Admin</option>
+                                            <option value="User">User</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="row" style="margin-left:850px;">

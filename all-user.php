@@ -3,6 +3,7 @@
 
 <head>
     <?php 
+        include_once 'connection/connection.php';
         include_once 'includes/head.php';
     ?>
 </head>
@@ -43,33 +44,35 @@
                         </div>
                         <div class="card-body">
                             <table class="table table-striped table-hover">
-                                <thead>
+                                <thead style="text-align:center;">
                                     <tr>
                                         <td>Seq. No.</td>
                                         <td>User Name</td>
                                         <td>User Email</td>
                                         <td>User Phone</td>
-                                        <td>Created Date</td>
+                                        <td>Created Role</td>
                                         <td>Action</td>
                                     </tr>
                                 </thead>
+                                <?php
+                                    $records = mysqli_query($conn,"SELECT * FROM `user`") OR die(mysqli_error($conn));
+                                    $i = 1;
+                                    while($record=mysqli_fetch_assoc($records)){
+                                        $id = $record['id'];
+                                ?>
                                 <tbody style="text-align:center;">
                                     <tr>
-                                        <td>01</td>
-                                        <td>Mr. X</td>
-                                        <td>Mr.X@example.com</td>
-                                        <td>123456789</td>
-                                        <td>02/07/2021</td>
+                                        <td><?php echo $i; ?></td>
+                                        <td><?php echo $record['fullname']; ?></td>
+                                        <td><?php echo $record['email']; ?></td>
+                                        <td><?php echo $record['tel']; ?></td>
+                                        <td><?php echo $record['role']; ?></td>
                                         <td><a href="view-user.php"><i class="fas fa-eye"></i></a> | <a href="user-update.php"><i class="fas fa-edit"></i></a> | <a href="#"><i class="fas fa-trash-alt"></i></a> | <a href="#"><i class="fas fa-ban"></i></a></td>
                                     </tr>
-                                    <tr>
-                                        <td>02</td>
-                                        <td>Mr. Y</td>
-                                        <td>Mr.Y@example.com</td>
-                                        <td>987654321</td>
-                                        <td>02/07/2021</td>
-                                        <td><a href="view-user.php"><i class="fas fa-eye"></i></a> | <a href="user-update.php"><i class="fas fa-edit"></i></a> | <a href="#"><i class="fas fa-trash-alt"></i></a> | <a href="#"><i class="fas fa-ban"></i></a></td>
-                                    </tr>
+                                <?php
+                                    $i++;
+                                }
+                                ?>
                                 </tbody>
                             </table>
                         </div>
