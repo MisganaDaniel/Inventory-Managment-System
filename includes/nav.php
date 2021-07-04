@@ -3,7 +3,7 @@
     //session_start();
 ?>
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                    <h2>Inventory Management System</h2>
+                    <h2 class="mb-5 mt-5"><i class="fas fa-warehouse"></i> Inventory Management System</h2>
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 

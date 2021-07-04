@@ -42,7 +42,7 @@
                     <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Create an Account</h1>
+                                <h1 class="h4 text-gray-900 mb-4"><i class="fas fa-user-plus"></i> Create an Account</h1>
                             </div>
                             <form class="user" action="register.php" method="POST">
                                 <div class="form-group">
@@ -68,7 +68,7 @@
                                         <option value="User">User</option>
                                     </select>
                                 </div>
-                                <button type="submit" name="register" class="btn btn-primary btn-user btn-block">Register</button>
+                                <button type="submit" name="register" class="btn btn-primary btn-user btn-block">Register <i class="fas fa-user-plus"></i></button>
                             </form>
                             <hr>
                             <div class="text-center">

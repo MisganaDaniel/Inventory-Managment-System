@@ -3,6 +3,7 @@
 
 <head>
     <?php 
+        include_once 'connection/connection.php';
         include_once 'includes/head.php';
     ?>
 </head>
@@ -41,12 +42,10 @@
                         $status = $record['status'];
                     }
 
-                    if(isset($_POST['delete'])){
-                        $owner = $_POST['owner']; 
-                        $status = $_POST['status'];	
-                        $record = mysqli_query($conn,"DELETE FROM `asset` WHERE `id`= '$id'");
+                    if(isset($_POST['delete'])){	
+                        $record = mysqli_query($conn,"DELETE FROM `asset` WHERE `id`= '$id'")OR die(mysqli_error($conn));
                         if($record){
-                            mysqli_close($db); // Close connection
+                            //mysqli_close($db); // Close connection
                             header("location: all-asset.php"); // redirects to all records page
                             exit;
                         }else{
@@ -68,7 +67,7 @@
                             <h3>Delete <?php echo @$asset_name; ?> Given to  '<?php echo @$asset_owner; ?>'</h3>
                         </div>
                         <div class="card-body">
-                        <form action="update.php" method="post">
+                        <form action="delete.php" method="post">
                                 <div class="row">
                                     <div class="col">
                                         <label for=""><strong>Asset Name: </strong><?php echo @$asset_name; ?></label>

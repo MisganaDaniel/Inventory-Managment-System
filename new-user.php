@@ -3,6 +3,7 @@
 
 <head>
     <?php 
+        include_once 'connection/connection.php';
         include_once 'includes/head.php';
     ?>
 </head>
@@ -42,29 +43,29 @@
                             <h1>Create User</h1> 
                         </div>
                         <div class="card-body">
-                            <form action="">
+                            <form action="new-user.php" method="post">
                                 <div class="row">
                                     <div class="col">
                                         <label for="">User Name</label>
-                                        <input type="text" class="form-control" placeholder="User Name" aria-label="User Name">
+                                        <input type="text" name="username" class="form-control" placeholder="User Name" aria-label="User Name">
                                     </div>
                                     <div class="col mb-5">
                                         <label for="">Email</label>
-                                        <input type="text" class="form-control" placeholder="Email" aria-label="Email">
+                                        <input type="text" name="email" class="form-control" placeholder="Email" aria-label="Email">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col mb-5">
                                         <label for="">Phone</label>
-                                        <input type="text" class="form-control" placeholder="Phone" aria-label="Phone">
+                                        <input type="text" name="phone" class="form-control" placeholder="Phone" aria-label="Phone">
                                     </div>
                                     <div class="col">
                                         <label for="">User Created Date</label>
-                                        <input type="date" class="form-control">
+                                        <input type="date" name="date" class="form-control">
                                     </div>
                                 </div>
                                 <div class="row" style="margin-left:850px;">
-                                    <button type="submit" class="btn btn-primary mr-2">Create</button>
+                                    <button type="submit" name="create" class="btn btn-primary mr-2">Create</button>
                                     <button type="reset" class="btn btn-danger">Clear</button>
                                 </div>
                             </form>

@@ -12,16 +12,16 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-text mx-3">IMS</div>
+                <div class="sidebar-brand-text mx-3"><i class="fas fa-warehouse"></i> IMS <i class="fas fa-warehouse"></i></div>
             </a>
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="index.php">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <i class="fas fa-warehouse"></i>
                     <span>Dashboard</span></a>
             </li>
 
@@ -77,16 +77,16 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-text mx-3">IMS</div>
+                <div class="sidebar-brand-text mx-3"><i class="fas fa-warehouse"></i> IMS <i class="fas fa-warehouse"></i></div>
             </a>
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="index.php">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <i class="fas fa-warehouse"></i>
                     <span>Dashboard</span></a>
             </li>
 

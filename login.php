@@ -49,7 +49,7 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome</h1>
+                                        <h1 class="h4 text-gray-900 mb-4"><i class="fas fa-user"></i> Welcome</h1>
                                     </div>
                                     <form class="user" action="login.php" method="POST"> 
                                         <div class="form-group">
@@ -68,7 +68,7 @@
                                                <option value="User">User</option>
                                            </select>
                                         </div>
-                                        <button type="submit" name="login" class="btn btn-primary btn-user btn-block">Login</button>
+                                        <button type="submit" name="login" class="btn btn-primary btn-user btn-block">Login <i class="fas fa-sign-in-alt"></i></button>
                                        
                                     </form>
                                     <hr>

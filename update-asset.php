@@ -3,6 +3,7 @@
 
 <head>
     <?php 
+        include_once 'connection/connection.php';
         include_once 'includes/head.php';
     ?>
 </head>
@@ -43,7 +44,7 @@
                         </div>
                         <div class="card-body">
                             <table class="table table-striped table-hover">
-                                <thead>
+                                <thead style="text-align:center;">
                                     <tr>
                                         <td>Seq. No.</td>
                                         <td>Asset Name</td>
@@ -54,25 +55,26 @@
                                         <td>Action</td>
                                     </tr>
                                 </thead>
+                                <?php
+                                    $records = mysqli_query($conn,"SELECT * FROM `asset`") OR die(mysqli_error($conn));
+                                    $i = 1;
+                                    while($record=mysqli_fetch_assoc($records)){
+                                        $id = $record['id'];
+                                ?>
                                 <tbody style="text-align:center;">
                                     <tr>
-                                        <td>01</td>
-                                        <td>XYZ</td>
-                                        <td>1234</td>
-                                        <td>ABC</td>
-                                        <td>02/07/2021</td>
-                                        <td>Purchased</td>
-                                        <td><a href="update.php"><i class="fas fa-edit"></i></a></td>
+                                        <td><?php echo $i; ?></td>
+                                        <td><?php echo $record['asset_name']; ?></td>
+                                        <td><?php echo $record['asset_SN']; ?></td>
+                                        <td><?php echo $record['asset_owner']; ?></td>
+                                        <td><?php echo $record['date']; ?></td>
+                                        <td><?php echo $record['status']; ?></td>
+                                        <td><a href="update.php?id=<?php echo $id; ?>"><i class="fas fa-edit"></i></a></td>
                                     </tr>
-                                    <tr>
-                                        <td>02</td>
-                                        <td>ABC</td>
-                                        <td>4321</td>
-                                        <td>XYZ</td>
-                                        <td>02/07/2021</td>
-                                        <td>Operational</td>
-                                        <td><a href="update.php"><i class="fas fa-edit"></i></a></td>
-                                    </tr>
+                                <?php
+                                    $i++;
+                                }
+                                ?>
                                 </tbody>
                             </table>
                         </div>
