@@ -39,37 +39,48 @@
                     </div>
                     <div class="card shadow mt-5">
                         <div class="card-header">
-                            <h1>Update User</h1>
+                            <h1><i class="fas fa-user"></i> Update User</h1>
                         </div>
                         <div class="card-body">
                             <table class="table table-striped table-hover">
-                                <thead>
+                                <thead style="text-align:center;">
                                     <tr>
                                         <td>Seq. No.</td>
                                         <td>User Name</td>
                                         <td>User Email</td>
                                         <td>User Phone</td>
-                                        <td>Created Date</td>
+                                        <td>User Role</td>
+                                        <td>User Status</td>
                                         <td>Action</td>
                                     </tr>
                                 </thead>
+                                <?php 
+                                    $username = $_SESSION['username']; 
+                                    $role = $_SESSION['role'];
+                                    if($role == 'Admin'){
+                                        $records = mysqli_query($conn,"SELECT * FROM `user`") OR die(mysqli_error($conn));
+                                    }else if($role == 'User'){
+                                        $records = mysqli_query($conn,"SELECT * FROM `user` WHERE `fullname` = '$username'") OR die(mysqli_error($conn));
+                                    }
+                                    //$records = mysqli_query($conn,"SELECT * FROM `user`") OR die(mysqli_error($conn));
+                                    $i = 1;
+                                    while($record=mysqli_fetch_assoc($records)){
+                                        $id = $record['id'];
+                                ?>
                                 <tbody style="text-align:center;">
                                     <tr>
-                                        <td>01</td>
-                                        <td>Mr. X</td>
-                                        <td>Mr.X@example.com</td>
-                                        <td>123456789</td>
-                                        <td>02/07/2021</td>
-                                        <td><a href="user-update.php"><i class="fas fa-edit"></i></a></td>
+                                        <td><?php echo $i; ?></td>
+                                        <td><?php echo $record['fullname']; ?></td>
+                                        <td><?php echo $record['email']; ?></td>
+                                        <td><?php echo $record['tel']; ?></td>
+                                        <td><?php echo $record['role']; ?></td>
+                                        <td><?php echo $record['status']; ?></td>
+                                        <td><a href="user-update.php?id=<?php echo $id; ?>"><i class="fas fa-edit"></i></a></td>
                                     </tr>
-                                    <tr>
-                                        <td>02</td>
-                                        <td>Mr. Y</td>
-                                        <td>Mr.Y@example.com</td>
-                                        <td>987654321</td>
-                                        <td>02/07/2021</td>
-                                        <td><a href="user-update.php"><i class="fas fa-edit"></i></a></td>
-                                    </tr>
+                                <?php
+                                    $i++;
+                                }
+                                ?>
                                 </tbody>
                             </table>
                         </div>

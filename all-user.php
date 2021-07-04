@@ -40,7 +40,7 @@
                     </div>
                     <div class="card shadow mt-5">
                         <div class="card-header">
-                            <h1>All User</h1>
+                            <h1><i class="fas fa-user"></i> All User</h1>
                         </div>
                         <div class="card-body">
                             <table class="table table-striped table-hover">
@@ -50,7 +50,8 @@
                                         <td>User Name</td>
                                         <td>User Email</td>
                                         <td>User Phone</td>
-                                        <td>Created Role</td>
+                                        <td>User Role</td>
+                                        <td>User Status</td>
                                         <td>Action</td>
                                     </tr>
                                 </thead>
@@ -67,7 +68,8 @@
                                         <td><?php echo $record['email']; ?></td>
                                         <td><?php echo $record['tel']; ?></td>
                                         <td><?php echo $record['role']; ?></td>
-                                        <td><a href="view-user.php"><i class="fas fa-eye"></i></a> | <a href="user-update.php"><i class="fas fa-edit"></i></a> | <a href="#"><i class="fas fa-trash-alt"></i></a> | <a href="#"><i class="fas fa-ban"></i></a></td>
+                                        <td><?php echo $record['status']; ?></td>
+                                        <td><a href="view-user.php?id=<?php echo $id; ?>"><i class="fas fa-eye"></i></a> | <a href="user-update.php?id=<?php echo $id; ?>"><i class="fas fa-edit"></i></a> | <a href="#"><i class="fas fa-trash-alt"></i></a> | <a href="#"><i class="fas fa-ban"></i></a></td>
                                     </tr>
                                 <?php
                                     $i++;

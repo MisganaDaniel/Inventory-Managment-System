@@ -56,7 +56,14 @@
                                     </tr>
                                 </thead>
                                 <?php
-                                    $records = mysqli_query($conn,"SELECT * FROM `asset`") OR die(mysqli_error($conn));
+                                    $username = $_SESSION['username']; 
+                                    $role = $_SESSION['role'];
+                                    if($role == 'Admin'){
+                                        $records = mysqli_query($conn,"SELECT * FROM `asset`") OR die(mysqli_error($conn));
+                                    }else if($role == 'User'){
+                                        $records = mysqli_query($conn,"SELECT * FROM `asset` WHERE `asset_owner` = '$username'") OR die(mysqli_error($conn));
+                                    }
+                                    //$records = mysqli_query($conn,"SELECT * FROM `asset`") OR die(mysqli_error($conn));
                                     $i = 1;
                                     while($record=mysqli_fetch_assoc($records)){
                                         $id = $record['id'];

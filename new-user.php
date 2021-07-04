@@ -37,8 +37,8 @@
                         $phone = $_POST['phone'];
                         $role = $_POST['role'];
 
-                        $record = mysqli_query($conn,"INSERT INTO `user` (`fullname`,`email`,`password`,`role`,`tel`) 
-                                                      VALUES ('$username','$email',MD5(Password1),'$role','$phone')");
+                        $record = mysqli_query($conn,"INSERT INTO `user` (`fullname`,`email`,`password`,`role`,`tel`,`status`) 
+                                                      VALUES ('$username','$email',MD5(Password1),'$role','$phone','Active')");
                         if($record){
                             echo '<script type="text/javascript">';
                             echo ' alert("New User registration Successful")';
@@ -58,7 +58,7 @@
                     </div>
                     <div class="card shadow">
                         <div class="card-header">
-                            <h1>Create User</h1> 
+                            <h1><i class="fas fa-user"></i> Create User</h1> 
                         </div>
                         <div class="card-body">
                             <form action="new-user.php" method="post">

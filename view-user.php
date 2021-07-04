@@ -3,6 +3,7 @@
 
 <head>
     <?php 
+        include_once 'connection/connection.php';
         include_once 'includes/head.php';
     ?>
 </head>
@@ -30,6 +31,16 @@
                 ?>
                 <!-- End of Topbar -->
 
+                <?php
+                    @$id = $_GET['id'];
+                    $records = mysqli_query($conn,"SELECT * FROM `user` WHERE `id` = '$id'") OR die(mysqli_error($conn));
+                    while($record=mysqli_fetch_assoc($records)){
+                        $fullname = $record['fullname'];
+                        $email = $record['email'];
+                        $role = $record['role'];
+                        $tel = $record['tel'];
+                    }
+                ?>
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
@@ -39,26 +50,26 @@
                     </div>
                     <div class="card shadow mt-5">
                         <div class="card-header">
-                            <h1>User Details</h1>
+                            <h1><i class="fas fa-user"></i> User Details</h1>
                         </div>
                         <div class="card-body">
                         <form action="">
                                 <div class="row">
                                     <div class="col">
-                                        <label for=""><strong>User Name:</strong>  Mr. X</label>
+                                        <label for=""><strong>User Name:</strong>  <?php echo $fullname; ?></label>
                                         
                                     </div>
                                     <div class="col mb-5">
-                                        <label for=""><strong>User Email:</strong>  Mr.X@example.com</label>
+                                        <label for=""><strong>User Email:</strong>  <?php echo $email; ?></label>
                                         
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col mb-5">
-                                        <label for=""><strong>User Phone:</strong>  1234556789</label>
+                                        <label for=""><strong>User Phone:</strong>  <?php echo $tel; ?></label>
                                     </div>
                                    <div class="col">
-                                        <label for=""><strong>User Created Date:</strong>  02/07/2021</label>
+                                        <label for=""><strong>User Role:</strong>  <?php echo $role; ?></label>
                                     </div>
                                 </div>
                             </form>

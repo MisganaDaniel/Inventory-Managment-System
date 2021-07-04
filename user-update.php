@@ -3,6 +3,7 @@
 
 <head>
     <?php 
+        include_once 'connection/connection.php';
         include_once 'includes/head.php';
     ?>
 </head>
@@ -29,7 +30,32 @@
                     include_once 'includes/nav.php';
                 ?>
                 <!-- End of Topbar -->
+                <?php
+                    @$id = $_GET['id'];
+                    $records = mysqli_query($conn,"SELECT * FROM `user` WHERE `id` = '$id'") OR die(mysqli_error($conn));
+                    while($record=mysqli_fetch_assoc($records)){
+                        $fullname = $record['fullname'];
+                        $email = $record['email'];
+                        $role = $record['role'];
+                        $tel = $record['tel'];
+                        $status = $record['status'];
+                    }
 
+                    if(isset($_POST['update'])){ 
+                        $status = $_POST['status'];	
+                        $record = mysqli_query($conn,"UPDATE `user` 
+                                                      SET `status`='$status'
+                                                      ");
+                        if($record){
+                            echo '<script type="text/javascript">';
+                            echo ' alert("User Details Updated Successful")';
+                                header('Location: all-asset.php');
+                            echo '</script>';
+                        }else{
+                            echo "Error: " . $record . " " . mysqli_error($conn);
+                        }
+                    }
+                ?>
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
@@ -39,32 +65,42 @@
                     </div>
                     <div class="card shadow mt-5">
                         <div class="card-header">
-                            <h1>Update User</h1>
+                            <h1><i class="fas fa-user"></i> Update User</h1>
                         </div>
                         <div class="card-body">
-                            <form action="">
+                            <form action="user-update.php" method="post">
                                 <div class="row">
                                     <div class="col">
                                         <label for="">User Name</label>
-                                        <input type="text" class="form-control" placeholder="User Name" aria-label="User Name">
+                                        <input type="text" class="form-control" placeholder="<?php echo @$fullname; ?>" readonly>
                                     </div>
                                     <div class="col mb-5">
                                         <label for="">Email</label>
-                                        <input type="text" class="form-control" placeholder="Email" aria-label="Email">
+                                        <input type="text" class="form-control" placeholder="<?php echo @$email; ?>" readonly>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col mb-5">
                                         <label for="">Phone</label>
-                                        <input type="text" class="form-control" placeholder="Phone" aria-label="Phone">
+                                        <input type="text" class="form-control" placeholder="<?php echo @$tel; ?>" readonly>
                                     </div>
                                     <div class="col">
-                                        <label for="">User Created Date</label>
-                                        <input type="date" class="form-control">
+                                        <label for="">Role</label>
+                                        <input type="text" class="form-control" placeholder="<?php echo @$role; ?>" readonly>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label for=""><strong>Status: </strong><?php echo $status; ?></label>
+                                        <select name="status" class="form-control">
+                                            <option value="">Change Status</option>
+                                            <option value="Block">Block</option>
+                                            <option value="Active">Active</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="row" style="margin-left:900px;">
-                                    <button type="submit" class="btn btn-primary mr-2">Update</button>
+                                    <button type="submit" name="update" class="btn btn-primary mr-2">Update</button>
                                 </div>
                             </form>
                         </div>

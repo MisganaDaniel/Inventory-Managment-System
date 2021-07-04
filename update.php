@@ -46,7 +46,8 @@
                         $status = $_POST['status'];	
                         $record = mysqli_query($conn,"UPDATE `asset` 
                                                       SET `asset_owner`='$owner',
-                                                          `status`='$status'"
+                                                          `status`='$status'
+                                                      WHERE `id` = '$id'"
                                                       );
                         if($record){
                             echo '<script type="text/javascript">';
