@@ -3,6 +3,7 @@
 
 <head>
     <?php 
+        include_once 'connection/connection.php';
         include_once 'includes/head.php';
     ?>
 </head>
@@ -50,7 +51,15 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                Total Number of Assets</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">100</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <?php
+                                                    $record = "SELECT * FROM `asset`";
+                                                    $result = mysqli_query($conn,$record);
+                                                    $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+                                                    $count = mysqli_num_rows($result);
+                                                    echo $count;
+                                                ?>
+                                            </div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-2x text-gray-300 fa-store"></i>
@@ -68,7 +77,15 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 Total Number of Users</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">5</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                            <?php
+                                                    $record = "SELECT * FROM `user`";
+                                                    $result = mysqli_query($conn,$record);
+                                                    $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+                                                    $count = mysqli_num_rows($result);
+                                                    echo $count;
+                                                ?>
+                                            </div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-user fa-2x text-gray-300"></i>
@@ -86,7 +103,15 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                                 Administrators</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">2</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                            <?php
+                                                    $record = "SELECT * FROM `user` WHERE `role` = 'Admin'";
+                                                    $result = mysqli_query($conn,$record);
+                                                    $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+                                                    $count = mysqli_num_rows($result);
+                                                    echo $count;
+                                                ?>
+                                            </div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-user fa-2x text-gray-300"></i>
@@ -106,7 +131,15 @@
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">5</div>
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                                    <?php
+                                                        $record = "SELECT * FROM `asset` WHERE `status` = 'Operational'";
+                                                        $result = mysqli_query($conn,$record);
+                                                        $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+                                                        $count = mysqli_num_rows($result);
+                                                        echo $count;
+                                                    ?>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -125,7 +158,15 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 Non Operational Items</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">5</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                            <?php
+                                                $record = "SELECT * FROM `asset` WHERE `status` = 'Not Operational'";
+                                                $result = mysqli_query($conn,$record);
+                                                $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+                                                $count = mysqli_num_rows($result);
+                                                echo $count;
+                                            ?>
+                                            </div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-tools fa-2x text-gray-300"></i>
@@ -143,7 +184,15 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                                 Assets In Store</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                            <?php
+                                                $record = "SELECT * FROM `asset` WHERE `status` = 'In Store'";
+                                                $result = mysqli_query($conn,$record);
+                                                $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+                                                $count = mysqli_num_rows($result);
+                                                echo $count;
+                                            ?>
+                                            </div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-warehouse fa-2x text-gray-300"></i>
@@ -160,7 +209,15 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Purchased Assets</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                            <?php
+                                                $record = "SELECT * FROM `asset` WHERE `status` = 'Purchased'";
+                                                $result = mysqli_query($conn,$record);
+                                                $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+                                                $count = mysqli_num_rows($result);
+                                                echo $count;
+                                            ?>
+                                            </div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-shopping-cart fa-2x text-gray-300"></i>
@@ -177,7 +234,15 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                Retired Assets</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                            <?php
+                                                $record = "SELECT * FROM `asset` WHERE `status` = 'Retired'";
+                                                $result = mysqli_query($conn,$record);
+                                                $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+                                                $count = mysqli_num_rows($result);
+                                                echo $count;
+                                            ?>
+                                            </div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dumpster fa-2x text-gray-300"></i>

@@ -10,11 +10,11 @@
 
 <?php
     
-    $sql = "DELETE FROM `asset` WHERE `id`='" . $_GET["id"] . "'";
+    $sql = "DELETE FROM `user` WHERE `id`='" . $_GET["id"] . "'";
     if (mysqli_query($conn, $sql)) {
         echo '<script type="text/javascript">';
         echo ' alert("Asset Deleted Successfully")';
-        header('Location: all-asset.php');
+        header('Location: all-user.php');
         echo '</script>';
     } else {
         echo "Error deleting record: " . mysqli_error($conn);

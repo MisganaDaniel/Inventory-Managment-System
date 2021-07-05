@@ -33,6 +33,7 @@
                     @$id = $_GET['id'];
                     $records = mysqli_query($conn,"SELECT * FROM `asset` WHERE `id` = '$id'") OR die(mysqli_error($conn));
                     while($record=mysqli_fetch_assoc($records)){
+                        $user_id = $record['id'];
                         $asset_name = $record['asset_name'];
                         $asset_SN = $record['asset_SN'];
                         $asset_description = $record['asset_description'];
@@ -44,14 +45,10 @@
                     if(isset($_POST['update'])){
                         $owner = $_POST['owner']; 
                         $status = $_POST['status'];	
-                        $record = mysqli_query($conn,"UPDATE `asset` 
-                                                      SET `asset_owner`='$owner',
-                                                          `status`='$status'
-                                                      WHERE `id` = '$id'"
-                                                      );
+                        $record = mysqli_query($conn,"UPDATE `asset` SET `asset_owner`='$owner',`status`='$status' WHERE `id`='$id'");
                         if($record){
                             echo '<script type="text/javascript">';
-                            echo ' alert("Asset Details Updated Successful")';
+                            echo ' alert("Asset Details Updated Successfully")';
                                 header('Location: all-asset.php');
                             echo '</script>';
                         }else{

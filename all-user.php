@@ -69,7 +69,7 @@
                                         <td><?php echo $record['tel']; ?></td>
                                         <td><?php echo $record['role']; ?></td>
                                         <td><?php echo $record['status']; ?></td>
-                                        <td><a href="view-user.php?id=<?php echo $id; ?>"><i class="fas fa-eye"></i></a> | <a href="user-update.php?id=<?php echo $id; ?>"><i class="fas fa-edit"></i></a> | <a href="#"><i class="fas fa-trash-alt"></i></a> | <a href="#"><i class="fas fa-ban"></i></a></td>
+                                        <td><a href="view-user.php?id=<?php echo $id; ?>"><i class="fas fa-eye"></i></a> | <a href="user-update.php?id=<?php echo $id; ?>"><i class="fas fa-edit"></i></a> | <a href="delete-user.php?id=<?php echo $id; ?>"><i class="fas fa-trash-alt"></i></a></td>
                                     </tr>
                                 <?php
                                     $i++;
