@@ -52,7 +52,7 @@
                     </div>
                     <div class="card shadow mt-5">
                         <div class="card-header">
-                            <h1>Asset Details</h1>
+                            <h1><i class="fas fa-store"></i> Asset Details</h1>
                         </div>
                         <div class="card-body">
                         <form action="">

@@ -3,6 +3,7 @@
 
 <head>
     <?php 
+        include_once 'connection/connection.php';
         include_once 'includes/head.php';
     ?>
 </head>
@@ -33,7 +34,7 @@
                     @$id = $_GET['id'];
                     $records = mysqli_query($conn,"SELECT * FROM `asset` WHERE `id` = '$id'") OR die(mysqli_error($conn));
                     while($record=mysqli_fetch_assoc($records)){
-                        $user_id = $record['id'];
+                        //$user_id = $record['id'];
                         $asset_name = $record['asset_name'];
                         $asset_SN = $record['asset_SN'];
                         $asset_description = $record['asset_description'];
@@ -43,13 +44,14 @@
                     }
 
                     if(isset($_POST['update'])){
+                        $user_id = $_POST['get_id'];
                         $owner = $_POST['owner']; 
                         $status = $_POST['status'];	
-                        $record = mysqli_query($conn,"UPDATE `asset` SET `asset_owner`='$owner',`status`='$status' WHERE `id`='$id'");
+                        $record = mysqli_query($conn,"UPDATE `asset` SET `asset_owner`='$owner',`status`='$status' WHERE `id`='$user_id'");
                         if($record){
                             echo '<script type="text/javascript">';
                             echo ' alert("Asset Details Updated Successfully")';
-                                header('Location: all-asset.php');
+                            header('Location: all-asset.php');
                             echo '</script>';
                         }else{
                             echo "Error: " . $record . " " . mysqli_error($conn);
@@ -67,7 +69,7 @@
                     </div>
                     <div class="card shadow mt-5">
                         <div class="card-header">
-                            <h1>Update Assets</h1>
+                            <h1><i class="fas fa-store"></i> Update Assets</h1>
                         </div>
                         <div class="card-body">
                         <form action="update.php" method="post">
@@ -97,7 +99,25 @@
                                                     <strong>Asset Owner:</strong>';?>  <?php echo @$asset_owner; ?>
                                                 <?php echo '</label>';?>
                                                 <?php echo '<select class="form-control" name="owner" id="">
-                                                    <option value="">Select Owner</option>'; ?>
+                                                    <option value="'?><?php echo $asset_owner; ?><?php echo '">'?> <?php echo @$asset_owner; ?> <?php echo '</option>'; ?>
+                                                    <?php
+                                                        $records = mysqli_query($conn,"SELECT `fullname` FROM `user` WHERE `role` = 'User'") OR die(mysqli_error($conn));
+                                                        while($record=mysqli_fetch_assoc($records)){
+                                                            echo "<option value='".$record['fullname']."'>" .$record['fullname']. "</option>";
+                                                        }
+                                                    ?>
+                                        <?php
+                                            echo '</select>
+                                                  </div>
+                                            ';
+                                        }else if($role == 'User'){
+                                            echo '
+                                            <div class="col mb-5">
+                                                <label for="">
+                                                    <strong>Asset Owner:</strong>';?>  <?php echo @$asset_owner; ?>
+                                                <?php echo '</label>';?>
+                                                <?php echo '<select class="form-control" name="owner" id="">
+                                                    <option value="'?><?php echo $asset_owner; ?><?php echo '">'?> <?php echo @$asset_owner; ?> <?php echo '</option>'; ?>
                                                     <?php
                                                         $records = mysqli_query($conn,"SELECT `fullname` FROM `user` WHERE `role` = 'User'") OR die(mysqli_error($conn));
                                                         while($record=mysqli_fetch_assoc($records)){
@@ -129,7 +149,9 @@
                                     </div>
                                 </div>
                                 <div class="row" style="margin-left:900px;">
+                                        <input type="hidden" name="get_id" value="<?php echo $id; ?>">
                                     <button type="submit" name="update" class="btn btn-primary mr-2">Update</button>
+                                    <!-- <a href="up.php?id=<?php echo $id; ?>" class="btn btn-primary">Update</a> -->
                                 </div>
                             </form>
                         </div>

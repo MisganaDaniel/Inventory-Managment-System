@@ -40,21 +40,47 @@
                         $tel = $record['tel'];
                         $status = $record['status'];
                     }
-
-                    if(isset($_POST['update'])){ 
-                        $status = $_POST['status'];	
-                        $record = mysqli_query($conn,"UPDATE `user` 
-                                                      SET `status`='$status'
-                                                      ");
-                        if($record){
-                            echo '<script type="text/javascript">';
-                            echo ' alert("User Details Updated Successful")';
-                                header('Location: all-asset.php');
-                            echo '</script>';
-                        }else{
-                            echo "Error: " . $record . " " . mysqli_error($conn);
+                    $role1 = $_SESSION['role'];
+                    if($role1 == "Admin"){
+                        if(isset($_POST['update'])){ 
+                            $user_id = $_POST['get_id'];
+                            $status = $_POST['status'];	
+                            $role = $_POST['role'];
+                            $record = mysqli_query($conn,"UPDATE `user` 
+                                                          SET `status`='$status',
+                                                              `role` = '$role'
+                                                          WHERE `id`='$user_id'");
+                            if($record){
+                                echo '<script type="text/javascript">';
+                                echo ' alert("User Details Updated Successful")';
+                                    header('Location: all-user.php');
+                                echo '</script>';
+                            }else{
+                                echo "Error: " . $record . " " . mysqli_error($conn);
+                            }
+                        }
+                    }else if($role1 == "User"){
+                        if(isset($_POST['update'])){ 
+                            $user_id = $_POST['get_id'];
+                            $username = $_POST['username'];
+                            $email = $_POST['email'];
+                            $phone = $_POST['phone'];
+                            $record = mysqli_query($conn,"UPDATE `user` 
+                                                          SET `fullname` = '$username',
+                                                              `email` = '$email',
+                                                              `tel` = '$phone'
+                                                          WHERE `id`='$user_id'");
+                            if($record){
+                                echo '<script type="text/javascript">';
+                                echo ' alert("User Details Updated Successful")';
+                                    header('Location: all-user.php');
+                                echo '</script>';
+                            }else{
+                                echo "Error: " . $record . " " . mysqli_error($conn);
+                            }
                         }
                     }
+                    
                 ?>
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
@@ -68,41 +94,87 @@
                             <h1><i class="fas fa-user"></i> Update User</h1>
                         </div>
                         <div class="card-body">
-                            <form action="user-update.php" method="post">
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="">User Name</label>
-                                        <input type="text" class="form-control" placeholder="<?php echo @$fullname; ?>" readonly>
-                                    </div>
-                                    <div class="col mb-5">
-                                        <label for="">Email</label>
-                                        <input type="text" class="form-control" placeholder="<?php echo @$email; ?>" readonly>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col mb-5">
-                                        <label for="">Phone</label>
-                                        <input type="text" class="form-control" placeholder="<?php echo @$tel; ?>" readonly>
-                                    </div>
-                                    <div class="col">
-                                        <label for="">Role</label>
-                                        <input type="text" class="form-control" placeholder="<?php echo @$role; ?>" readonly>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <label for=""><strong>Status: </strong><?php echo $status; ?></label>
-                                        <select name="status" class="form-control">
-                                            <option value="">Change Status</option>
-                                            <option value="Blocked">Blocked</option>
-                                            <option value="Active">Active</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row" style="margin-left:900px;">
-                                    <button type="submit" name="update" class="btn btn-primary mr-2">Update</button>
-                                </div>
-                            </form>
+                        <?php
+                            $role1 = $_SESSION['role'];
+                            if($role1 == "Admin"){
+                                echo '
+                                    <form action="user-update.php" method="post">
+                                        <div class="row">
+                                            <div class="col">
+                                                <label for="">User Name</label>
+                                                <input type="text" class="form-control" placeholder="';?>  <?php echo @$fullname; ?> <?php echo '" readonly>
+                                            </div>
+                                            <div class="col mb-5">
+                                                <label for="">Email</label>
+                                                <input type="text" class="form-control" placeholder="';?> <?php echo @$email; ?> <?php echo '" readonly>
+                                            </div>
+                                        </div>';?>
+                                        <?php echo ' <div class="row">
+                                            <div class="col mb-5">
+                                                <label for="">Phone</label>
+                                                <input type="text" class="form-control" placeholder="';?> <?php echo @$tel; ?> <?php echo ' " readonly>
+                                            </div>
+                                            <div class="col">
+                                                <label for=""><strong>Role: </strong>'; ?> <?php echo @$role; ?> <?php echo ' </label>
+                                                <select name="role" class="form-control">
+                                                    <option value="">Change Role</option>
+                                                    <option value="Admin">Admin</option>
+                                                    <option value="User">User</option>
+                                                </select>
+                                            </div>
+                                        </div>'; ?>
+                                        <?php echo ' <div class="row">
+                                            <div class="col-sm-6">
+                                                <label for=""><strong>Status: </strong>'; ?> <?php echo @$status; ?> <?php echo ' </label>
+                                                <select name="status" class="form-control">
+                                                    <option value="">Change Status</option>
+                                                    <option value="Blocked">Blocked</option>
+                                                    <option value="Active">Active</option>
+                                                </select>
+                                            </div>
+                                        </div> ';?>
+                                        <?php echo ' <div class="row" style="margin-left:900px;">
+                                            <input type="hidden" name="get_id" value="';?>  <?php echo $id; ?> <?php echo ' ">
+                                            <button type="submit" name="update" class="btn btn-primary mr-2">Update</button>
+                                        </div>
+                                    </form>';?>
+                            <?php
+                                }else if($role1 == "User"){
+                                    echo '
+                                        <form action="user-update.php" method="post">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <label for="">User Name</label>
+                                                    <input type="text" name="username" class="form-control" value="';?><?php echo @$fullname; ?><?php echo'" required> 
+                                                </div>
+                                                <div class="col mb-5">
+                                                    <label for="">Email</label>
+                                                    <input type="text" name="email" class="form-control" value="';?><?php echo @$email; ?><?php echo'" required> 
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col mb-5">
+                                                    <label for="">Phone</label>
+                                                    <input type="text" name="phone" class="form-control" value="';?><?php echo @$tel; ?><?php echo '" required>
+                                                </div>
+                                                <div class="col">
+                                                    <label for=""><strong>Role: </strong>'; ?> <?php echo @$role; ?> <?php echo ' </label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <label for=""><strong>Status: </strong>'; ?> <?php echo @$status; ?> <?php echo ' </label>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-left:900px;">
+                                                <input type="hidden" name="get_id" value="';?>  <?php echo $id; ?> <?php echo ' ">
+                                                <button type="submit" name="update" class="btn btn-primary mr-2">Update</button>
+                                            </div>
+                                        </form>
+                                         ';
+                                }
+                            ?>
+                            
                         </div>
                     </div>
                         

@@ -63,7 +63,7 @@
                     </div>
                     <div class="card shadow">
                         <div class="card-header">
-                            <h1>Create Asset</h1> 
+                            <h1><i class="fas fa-store"></i> Create Asset</h1> 
                         </div>
                         <div class="card-body">
                             <form action="new-asset.php" method="post">

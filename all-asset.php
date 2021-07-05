@@ -39,7 +39,7 @@
                     </div>
                     <div class="card shadow mt-5">
                         <div class="card-header">
-                            <h1>All Assets</h1>
+                            <h1><i class="fas fa-store"></i> All Assets</h1>
                         </div>
                         <div class="card-body">
                             <table class="table table-striped table-hover">
@@ -79,8 +79,8 @@
                                             <?php
                                                if($role == 'Admin'){
                                                    echo '<a href="view-asset.php?id=';?><?php echo $id; ?> <?php echo ' "><i class="fas fa-eye"></i></a> | 
-                                                    <a href="update.php?id=';?> <?php echo $id; ?> <?php echo ' "><i class="fas fa-edit"></i></a> | 
-                                                    <a href="delete.php?id=';?> <?php echo $id; ?> <?php echo ' "><i class="fas fa-trash-alt"></i></a> ';?>
+                                                    <a href="update.php?id=';?><?php echo $id; ?> <?php echo ' "><i class="fas fa-edit"></i></a> | 
+                                                    <a href="delete.php?id=';?><?php echo $id; ?> <?php echo ' "><i class="fas fa-trash-alt"></i></a> ';?>
                                                <?php 
                                                }else if($role == "User"){
                                                     echo '<a href="view-asset.php?id=';?><?php echo $id; ?> <?php echo ' "><i class="fas fa-eye"></i></a>';
