@@ -85,22 +85,35 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col mb-5">
+                                    <div class="col-sm-6 mb-5">
                                         <label for=""><strong>Asset Description</strong></label>
                                         <input type="text"  class="form-control" placeholder="<?php echo @$asset_description; ?>" aria-label="Asset Name" readonly>   
                                     </div>
-                                    <div class="col mb-5">
-                                        <label for=""><strong>Asset Owner:</strong>  <?php echo @$asset_owner; ?></label>
-                                        <select class="form-control" name="owner" id="">
-                                            <option value="">Select Owner</option>
-                                            <?php
-                                                $records = mysqli_query($conn,"SELECT `fullname` FROM `user` WHERE `role` = 'User'") OR die(mysqli_error($conn));
-                                                while($record=mysqli_fetch_assoc($records)){
-                                                    echo "<option value='".$record['fullname']."'>" .$record['fullname']. "</option>";
-                                                }
-                                            ?>
-                                        </select>
-                                    </div>
+
+                                    <?php
+                                        $username = $_SESSION['username']; 
+                                        $role = $_SESSION['role'];
+                                        if($role == 'Admin'){
+                                            echo '
+                                            <div class="col mb-5">
+                                                <label for="">
+                                                    <strong>Asset Owner:</strong>';?>  <?php echo @$asset_owner; ?>
+                                                <?php echo '</label>';?>
+                                                <?php echo '<select class="form-control" name="owner" id="">
+                                                    <option value="">Select Owner</option>'; ?>
+                                                    <?php
+                                                        $records = mysqli_query($conn,"SELECT `fullname` FROM `user` WHERE `role` = 'User'") OR die(mysqli_error($conn));
+                                                        while($record=mysqli_fetch_assoc($records)){
+                                                            echo "<option value='".$record['fullname']."'>" .$record['fullname']. "</option>";
+                                                        }
+                                                    ?>
+                                        <?php
+                                            echo '</select>
+                                            </div>
+                                            ';
+                                        }
+                                        ?>
+                                    
                                 </div>
                                 <div class="row">
                                     <div class="col">

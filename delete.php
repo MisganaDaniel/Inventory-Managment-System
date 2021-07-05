@@ -45,8 +45,11 @@
                     if(isset($_POST['delete'])){	
                         $record = mysqli_query($conn,"DELETE FROM `asset` WHERE `id`= '$id'")OR die(mysqli_error($conn));
                         if($record){
-                            //mysqli_close($db); // Close connection
-                            header("location: all-asset.php"); // redirects to all records page
+                            echo '<script type="text/javascript">';
+                            echo ' alert("Asset Deleted Successful")';
+                                header('Location: all-asset.php');
+                            echo '</script>';
+                            //header("location: all-asset.php"); // redirects to all records page
                             exit;
                         }else{
                             echo "Error: " . $record . " " . mysqli_error($conn);
