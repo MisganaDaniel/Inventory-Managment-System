@@ -106,7 +106,7 @@
                                                     ?>
                                         <?php
                                             echo '</select>
-                                            </div>
+                                                  </div>
                                             ';
                                         }
                                         ?>

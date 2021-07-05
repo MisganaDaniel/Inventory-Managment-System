@@ -94,7 +94,7 @@
                                         <label for=""><strong>Status: </strong><?php echo $status; ?></label>
                                         <select name="status" class="form-control">
                                             <option value="">Change Status</option>
-                                            <option value="Block">Block</option>
+                                            <option value="Blocked">Blocked</option>
                                             <option value="Active">Active</option>
                                         </select>
                                     </div>
