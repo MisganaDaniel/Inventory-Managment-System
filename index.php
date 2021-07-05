@@ -2,302 +2,90 @@
 <html lang="en">
 
 <head>
-    <?php 
+
+    <?php
         include_once 'connection/connection.php';
         include_once 'includes/head.php';
     ?>
+    <?php
+        if(isset($_POST['login'])){
+            $username   = $_POST['username'];
+            $password   = $_POST['password'];
+            $role   = $_POST['role'];
+            $hash_password = MD5($password);
+            $record = "SELECT * FROM `user` WHERE `fullname` = '$username' AND `password` = '$hash_password' AND `role` = '$role'";
+            $result = mysqli_query($conn,$record);
+            $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+            $count = mysqli_num_rows($result);
+           
+            if($count == 1) {
+                session_start(); 
+                $_SESSION['username'] = $username;
+                $_SESSION['role'] = $role;
+                header("location: dashboard.php");
+             }else {
+                $error = "Your Login Name or Password is invalid";
+             }
+        }
+    ?>
+
 </head>
 
-<body id="page-top">
+<body class="bg-gradient-primary">
 
-    <!-- Page Wrapper -->
-    <div id="wrapper">
+    <div class="container">
 
-        <!-- Sidebar -->
-        <?php
-            include_once 'includes/sidebar.php';
-        ?>
-        <!-- End of Sidebar -->
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+            <div class="col-xl-10 col-lg-12 col-md-9">
 
-            <!-- Main Content -->
-            <div id="content">
-
-                <!-- Topbar -->
-                <?php
-                    include_once 'includes/nav.php';
-                ?>
-                <!-- End of Topbar -->
-
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                        
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+                            <!-- <div class="col-lg-6 d-none d-lg-block bg-login-image"></div> -->
+                            <div class="col-lg-6 d-none d-lg-block"><img src="img/1.png" width="490" height="450" alt=""></div>
+                            <div class="col-lg-6">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4"><i class="fas fa-user"></i> Welcome</h1>
+                                    </div>
+                                    <form class="user" action="index.php" method="POST"> 
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                id="exampleInputEmail" aria-describedby="emailHelp"
+                                                placeholder="Enter Username" name="username" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control"
+                                                id="exampleInputPassword" name="password" placeholder="Enter Password" required>
+                                        </div>
+                                        <div class="form-group">
+                                           <select name="role" id="" class="form-control" required>
+                                               <option value="1" >Select Role</option>
+                                               <option value="Admin">Admin</option>
+                                               <option value="User">User</option>
+                                           </select>
+                                        </div>
+                                        <button type="submit" name="login" class="btn btn-primary btn-user btn-block">Login <i class="fas fa-sign-in-alt"></i></button>
+                                       
+                                    </form>
+                                    <hr>
+                                    
+                                    <div class="text-center">
+                                        <a class="small" href="register.php">Create an Account!</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
-                    <!-- Content Row -->
-                    <div class="row">
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                               Total Number of Assets</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                <?php
-                                                    $record = "SELECT * FROM `asset`";
-                                                    $result = mysqli_query($conn,$record);
-                                                    $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-                                                    $count = mysqli_num_rows($result);
-                                                    echo $count;
-                                                ?>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-2x text-gray-300 fa-store"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Total Number of Users</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                            <?php
-                                                    $record = "SELECT * FROM `user`";
-                                                    $result = mysqli_query($conn,$record);
-                                                    $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-                                                    $count = mysqli_num_rows($result);
-                                                    echo $count;
-                                                ?>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-user fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Administrators</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                            <?php
-                                                    $record = "SELECT * FROM `user` WHERE `role` = 'Admin'";
-                                                    $result = mysqli_query($conn,$record);
-                                                    $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-                                                    $count = mysqli_num_rows($result);
-                                                    echo $count;
-                                                ?>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-user fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Operational Assets
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
-                                                    <?php
-                                                        $record = "SELECT * FROM `asset` WHERE `status` = 'Operational'";
-                                                        $result = mysqli_query($conn,$record);
-                                                        $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-                                                        $count = mysqli_num_rows($result);
-                                                        echo $count;
-                                                    ?>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-toolbox fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Non Operational Items</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                            <?php
-                                                $record = "SELECT * FROM `asset` WHERE `status` = 'Not Operational'";
-                                                $result = mysqli_query($conn,$record);
-                                                $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-                                                $count = mysqli_num_rows($result);
-                                                echo $count;
-                                            ?>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-tools fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Assets In Store</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                            <?php
-                                                $record = "SELECT * FROM `asset` WHERE `status` = 'In Store'";
-                                                $result = mysqli_query($conn,$record);
-                                                $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-                                                $count = mysqli_num_rows($result);
-                                                echo $count;
-                                            ?>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-warehouse fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                         <!-- Pending Requests Card Example -->
-                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Purchased Assets</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                            <?php
-                                                $record = "SELECT * FROM `asset` WHERE `status` = 'Purchased'";
-                                                $result = mysqli_query($conn,$record);
-                                                $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-                                                $count = mysqli_num_rows($result);
-                                                echo $count;
-                                            ?>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-shopping-cart fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                         <!-- Pending Requests Card Example -->
-                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                               Retired Assets</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                            <?php
-                                                $record = "SELECT * FROM `asset` WHERE `status` = 'Retired'";
-                                                $result = mysqli_query($conn,$record);
-                                                $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-                                                $count = mysqli_num_rows($result);
-                                                echo $count;
-                                            ?>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-dumpster fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div>
-
-                
                 </div>
-                <!-- /.container-fluid -->
 
             </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <?php
-                    include_once 'includes/footer.php';
-                ?>
-            </footer>
-            <!-- End of Footer -->
 
         </div>
-        <!-- End of Content Wrapper -->
 
-    </div>
-    <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
     </div>
 
     <!-- Bootstrap core JavaScript-->
@@ -309,13 +97,6 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
 
 </body>
 
