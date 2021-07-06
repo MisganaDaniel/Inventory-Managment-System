@@ -17,15 +17,30 @@
             $result = mysqli_query($conn,$record);
             $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
             $count = mysqli_num_rows($result);
-           
-            if($count == 1) {
-                session_start(); 
-                $_SESSION['username'] = $username;
-                $_SESSION['role'] = $role;
-                header("location: dashboard.php");
-             }else {
-                $error = "Your Login Name or Password is invalid";
-             }
+            
+            
+            //$records = mysqli_query($conn,"SELECT * FROM `user` WHERE `fullname` = '$username' AND `password` = '$hash_password' AND `role` = '$role'");
+            //$status = $row['status'];
+            $active = $row['status'];
+            
+            
+            if($active == "Active"){
+                if($count == 1) {
+                    session_start(); 
+                    $_SESSION['username'] = $username;
+                    $_SESSION['role'] = $role;
+                    header("location: dashboard.php");
+                }else {
+                    $error = "Your Login Name or Password is invalid";
+                }
+            }else if($active == "Blocked"){
+                echo '<script type="text/javascript">';
+                echo ' alert("Your Account Has Been Blocked!")';
+                //header('Location: all-user.php');
+                echo '</script>';
+            }
+
+            
         }
     ?>
 
