@@ -36,9 +36,10 @@
                         $email = $_POST['email'];
                         $phone = $_POST['phone'];
                         $role = $_POST['role'];
-
+                        $password = "Password1";
+                        $hash_password = MD5($password);
                         $record = mysqli_query($conn,"INSERT INTO `user` (`fullname`,`email`,`password`,`role`,`tel`,`status`) 
-                                                      VALUES ('$username','$email',MD5(Password1),'$role','$phone','Active')");
+                                                      VALUES ('$username','$email','$hash_password','$role','$phone','Active')");
                         if($record){
                             echo '<script type="text/javascript">';
                             echo ' alert("New User registration Successful")';

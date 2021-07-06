@@ -116,14 +116,8 @@
                                                 <label for="">
                                                     <strong>Asset Owner:</strong>';?>  <?php echo @$asset_owner; ?>
                                                 <?php echo '</label>';?>
-                                                <?php echo '<select class="form-control" name="owner" id="">
-                                                    <option value="'?><?php echo $asset_owner; ?><?php echo '">'?> <?php echo @$asset_owner; ?> <?php echo '</option>'; ?>
-                                                    <?php
-                                                        $records = mysqli_query($conn,"SELECT `fullname` FROM `user` WHERE `role` = 'User'") OR die(mysqli_error($conn));
-                                                        while($record=mysqli_fetch_assoc($records)){
-                                                            echo "<option value='".$record['fullname']."'>" .$record['fullname']. "</option>";
-                                                        }
-                                                    ?>
+                                                <?php echo ' <input type="hidden" name="owner" class="form-control" value="';?><?php echo @$asset_owner;?><?php echo'" aria-label="Asset Serial Number">';?>
+                                                
                                         <?php
                                             echo '</select>
                                                   </div>

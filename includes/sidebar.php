@@ -66,9 +66,6 @@
 
             <!-- Divider -->
             <hr class="sidebar-divider">
-
-
-
         </ul>
         ';
     }else if($role == "User"){
@@ -130,9 +127,6 @@
 
             <!-- Divider -->
             <hr class="sidebar-divider">
-
-
-
         </ul>
         ';
     }
